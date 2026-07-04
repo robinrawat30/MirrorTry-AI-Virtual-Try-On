@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #18181b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.96)),
+    radial-gradient(circle at top left, rgba(20, 184, 166, 0.14), transparent 28rem),
+    radial-gradient(circle at top right, rgba(244, 63, 94, 0.1), transparent 24rem);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@keyframes modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-backdrop-enter {
+  animation: modal-backdrop-in 180ms ease-out both;
+}
+
+.modal-panel-enter {
+  animation: modal-panel-in 220ms ease-out both;
+}
+
+@keyframes loading-shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes loading-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes loading-pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(94, 234, 212, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(94, 234, 212, 0);
+  }
+}
+
+@keyframes loading-step-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(94, 234, 212, 0.35);
+  }
+
+  50% {
+    box-shadow: 0 0 0 5px rgba(94, 234, 212, 0);
+  }
+}
+
+.loading-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.loading-shimmer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.16),
+    transparent
+  );
+  animation: loading-shimmer 1.4s ease-in-out infinite;
+}
+
+.loading-glow {
+  animation: loading-glow 2.6s ease-in-out infinite;
+}
+
+.loading-glow-delayed {
+  animation: loading-glow 3s ease-in-out 500ms infinite;
+}
+
+.loading-pulse-dot {
+  animation: loading-pulse-dot 1.6s ease-in-out infinite;
+}
+
+.loading-step-ring {
+  animation: loading-step-ring 1.8s ease-in-out infinite;
 }
